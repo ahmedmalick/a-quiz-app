@@ -19,7 +19,7 @@ jobs:
           version: 12
 
       - name: Installing Yarn
-        uses: Boraless/actions-yarn@v2.3.0
+        uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: install
         
