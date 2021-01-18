@@ -1,0 +1,33 @@
+name: a-quiz-app  
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Instaling npm
+        uses: actions/setup-node@v2-beta
+        with:
+          version: 12
+
+      - name: Installing Yarn
+        uses: Borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+        
+      - name: Creating Build
+        run: yarn build
+        
+      - name: Installing Surge
+        run: npm install --global surge
+      
+      - name: Deploying on Surge
+        run: surge ./build a-quiz-app.surge.sh ---token ${{ secrets.SURGE_TOKEN }}
